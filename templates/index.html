@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stress Predictor | Mental Health AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .info-card h1 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .info-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .predictor-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            width: 450px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .predictor-card h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result.low {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+
+        .result.medium {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+        }
+
+        .result.high {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+
+        .result h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .result.low h3 { color: #155724; }
+        .result.medium h3 { color: #856404; }
+        .result.high h3 { color: #721c24; }
+
+        .result p {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .result.low p { color: #155724; }
+        .result.medium p { color: #856404; }
+        .result.high p { color: #721c24; }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .predictor-card, .info-card {
+                width: 100%;
+                max-width: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="info-card">
+            <h1>🧠 Stress Predictor</h1>
+            <p>AI-powered tool to predict student stress levels based on lifestyle habits.</p>
+            <ul class="feature-list">
+                <li>Study hours analysis</li>
+                <li>Sleep quality tracking</li>
+                <li>Exercise impact</li>
+                <li>Screen time effects</li>
+            </ul>
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0e0e0;">
+                <small style="color: #888;">Powered by Decision Tree AI | 86% Accuracy</small>
+            </div>
+        </div>
+
+        <div class="predictor-card">
+            <h2>📊 Check Your Stress Level</h2>
+            <p class="subtitle">Enter your daily habits below</p>
+
+            <form action="/predict" method="POST">
+                <div class="form-group">
+                    <label>📚 Study Hours (per day)</label>
+                    <input type="number" step="0.5" name="study" placeholder="e.g., 5" required>
+                </div>
+
+                <div class="form-group">
+                    <label>😴 Sleep Hours (per night)</label>
+                    <input type="number" step="0.5" name="sleep" placeholder="e.g., 7" required>
+                </div>
+
+                <div class="form-group">
+                    <label>🏃 Exercise Hours (per week)</label>
+                    <input type="number" step="0.5" name="exercise" placeholder="e.g., 3" required>
+                </div>
+
+                <div class="form-group">
+                    <label>📱 Daily Screen Time</label>
+                    <select name="screen" required>
+                        <option value="1">Less than 2 hours</option>
+                        <option value="2">2-4 hours</option>
+                        <option value="3">4-6 hours</option>
+                        <option value="4">More than 6 hours</option>
+                    </select>
+                </div>
+
+                <button type="submit">Predict Stress Level</button>
+            </form>
+
+            {% if prediction %}
+            <div class="result {{ prediction.lower() }}">
+                <h3>🎯 {{ prediction }} Stress</h3>
+                {% if prediction == 'Low' %}
+                <p>✅ Great! Your habits indicate healthy stress levels. Keep it up!</p>
+                {% elif prediction == 'Medium' %}
+                <p>⚠️ Moderate stress detected. Consider improving sleep or exercise.</p>
+                {% else %}
+                <p>⚠️ High stress detected. Prioritize self-care and reach out for support.</p>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
